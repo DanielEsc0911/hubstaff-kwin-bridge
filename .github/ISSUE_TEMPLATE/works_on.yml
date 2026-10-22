@@ -1,0 +1,27 @@
+name: Works on my setup
+description: Report a distro / Plasma / Hubstaff combination where it works
+labels: [compatibility]
+body:
+  - type: input
+    id: distro
+    attributes:
+      label: Distro and version
+    validations:
+      required: true
+  - type: input
+    id: plasma
+    attributes:
+      label: Plasma version
+    validations:
+      required: true
+  - type: input
+    id: hubstaff
+    attributes:
+      label: Hubstaff version
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes
+      description: Anything you had to do differently.

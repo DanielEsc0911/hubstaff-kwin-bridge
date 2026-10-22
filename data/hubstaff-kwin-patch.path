@@ -1,0 +1,9 @@
+[Unit]
+Description=Re-apply Hubstaff launcher patch when its desktop entries change
+
+[Path]
+PathModified=%h/.local/share/applications/netsoft-com.netsoft.hubstaff.desktop
+PathModified=%h/.config/autostart
+
+[Install]
+WantedBy=default.target

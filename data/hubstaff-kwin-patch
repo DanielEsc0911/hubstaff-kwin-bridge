@@ -1,0 +1,15 @@
+#!/bin/sh
+# Idempotently prefix Hubstaff desktop entries' Exec= lines with the launcher.
+# Run by hubstaff-kwin-patch.path whenever those files change.
+LAUNCH="$HOME/.local/bin/hubstaff-kwin-launch"
+for f in "$HOME"/.local/share/applications/*hubstaff*.desktop \
+         "$HOME"/.config/autostart/*[Hh]ubstaff*.desktop; do
+    [ -f "$f" ] || continue
+    grep -q '^Exec=.*Hubstaff' "$f" || continue
+    grep -q "^Exec=\"\?$LAUNCH" "$f" && continue
+    sed -i "s|^Exec=\(.*Hubstaff.*\)$|Exec=\"$LAUNCH\" \1|" "$f"
+    echo "patched $f"
+done
+command -v update-desktop-database >/dev/null && \
+    update-desktop-database -q "$HOME/.local/share/applications" 2>/dev/null
+exit 0

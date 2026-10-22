@@ -1,0 +1,37 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build (Fedora)
+    runs-on: ubuntu-latest
+    container: fedora:latest
+    steps:
+      - name: Install dependencies
+        run: dnf install -y --setopt=install_weak_deps=False gcc make pkgconf-pkg-config glib2-devel wayland-devel wayland-protocols-devel
+      - uses: actions/checkout@v4
+      - name: Build (fail on warnings)
+        run: |
+          make 2>&1 | tee build.log
+          test -x build/hubstaff-kwin-bridge
+          ! grep -q 'warning:' build.log
+      - name: Show binary
+        run: ls -l build/hubstaff-kwin-bridge
+
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: shellcheck
+        run: shellcheck -s sh data/hubstaff-kwin-launch data/hubstaff-kwin-patch tools/doctor.sh
+      - name: Python syntax
+        run: python3 -m py_compile tools/probe_idlemonitor.py

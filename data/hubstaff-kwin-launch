@@ -1,0 +1,10 @@
+#!/bin/sh
+# Wrapper inserted in front of Hubstaff's Exec= lines.
+# On KDE Wayland, make Hubstaff pick its Mutter IdleMonitor activity provider,
+# which hubstaff-kwin-bridge implements. Other sessions pass through untouched.
+case "$XDG_SESSION_TYPE:$XDG_CURRENT_DESKTOP" in
+    wayland:*KDE*)
+        export XDG_CURRENT_DESKTOP=GNOME XDG_SESSION_DESKTOP=gnome
+        ;;
+esac
+exec "$@"

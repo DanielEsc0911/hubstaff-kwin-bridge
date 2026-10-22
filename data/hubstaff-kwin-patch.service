@@ -1,0 +1,6 @@
+[Unit]
+Description=Patch Hubstaff desktop entries to use hubstaff-kwin-launch
+
+[Service]
+Type=oneshot
+ExecStart=%h/.local/bin/hubstaff-kwin-patch

@@ -1,0 +1,50 @@
+name: Bug report
+description: Activity not recorded, install failure, or other problem
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting! Please check [docs/troubleshooting.md](https://github.com/DanielEsc0911/hubstaff-kwin-bridge/blob/main/docs/troubleshooting.md) first.
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: What you expected, and what you saw instead.
+    validations:
+      required: true
+  - type: textarea
+    id: doctor
+    attributes:
+      label: "`make doctor` output"
+      description: Run it after restarting Hubstaff from the app menu.
+      render: text
+    validations:
+      required: true
+  - type: input
+    id: distro
+    attributes:
+      label: Distro and version
+      placeholder: Fedora 44
+    validations:
+      required: true
+  - type: input
+    id: plasma
+    attributes:
+      label: Plasma version (`plasmashell --version`)
+      placeholder: plasmashell 6.7.5
+    validations:
+      required: true
+  - type: input
+    id: hubstaff
+    attributes:
+      label: Hubstaff version
+      placeholder: 1.9.8
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Bridge log
+      description: "`journalctl --user -u hubstaff-kwin-bridge -n 50`, plus any relevant lines from `~/.local/share/Hubstaff/logs/hubstaff.log` (remove anything private)."
+      render: text

@@ -1,0 +1,12 @@
+[Unit]
+Description=Hubstaff KWin activity bridge (org.gnome.Mutter.IdleMonitor over ext-idle-notify-v1)
+PartOf=graphical-session.target
+After=graphical-session.target
+ConditionEnvironment=WAYLAND_DISPLAY
+
+[Service]
+Type=dbus
+BusName=org.gnome.Mutter.IdleMonitor
+ExecStart=%h/.local/libexec/hubstaff-kwin-bridge
+Restart=on-failure
+RestartSec=2
